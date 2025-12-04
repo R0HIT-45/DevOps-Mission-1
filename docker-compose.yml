@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: devops_app
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=development
+    volumes:
+      - .:/app
