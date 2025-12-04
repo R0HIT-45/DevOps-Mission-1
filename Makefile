@@ -1,22 +1,16 @@
-# Makefile for DevOps Mission 1
+.PHONY: build run test lint clean
 
-# Build Docker image
 build:
-	docker build -t devops-mission-1-app .
+	docker compose build
 
-# Start container using docker compose
 run:
 	docker compose up -d
 
-# Stop and remove containers, networks, and images
-clean:
-	docker compose down
-	docker rmi devops-mission-1-app -f
-
-# Run tests inside container
 test:
-	docker run --rm -v $(PWD)/tests:/tests devops-mission-1-app python -m unittest discover /tests
+	docker compose run --rm app pytest
 
-# Lint the code (optional)
 lint:
-	flake8 app
+	docker compose run --rm app flake8 .
+
+clean:
+	docker compose down --rmi all --volumes --remove-orphans
