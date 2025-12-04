@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 import logging
-import os
 import sys
 import time
 from flask import Flask, jsonify, g, request
@@ -38,32 +36,13 @@ def create_app() -> Flask:
     def healthz():
         return jsonify({"status": "ok"}), 200
 
-    @app.get("/hello")
+    @app.get("/")
     def hello():
-        env = os.environ.get("APP_ENV", "development")
-        return jsonify({"message": "hello", "env": env}), 200
+        return jsonify({"message": "Hello, DevOps Mission 1!"}), 200
 
     return app
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", "8000"))
-    create_app().run(host="0.0.0.0", port=port)
-=======
-from flask import Flask, jsonify
-
-app = Flask(__name__)
-
-@app.route("/healthz")
-def health():
-    return jsonify({"status": "ok"}), 200
-
-@app.route("/")
-def home():
-    return "Welcome to the Demo App!", 200
-
-if __name__ == "__main__":
-    import os
-    port = int(os.getenv("PORT", 8000))
-    app.run(host="0.0.0.0", port=port)
->>>>>>> f067b74 (Initial commit with CI pipeline)
+    app = create_app()
+    app.run(host="0.0.0.0", port=8000)
